@@ -9,6 +9,8 @@ class Product(models.Model):
    image_uri = models.TextField()
    productCategory = models.TextField()
    datePublished = models.DateTimeField(auto_now_add=True)
+   color = models.CharField(max_length=200,default=False)
+   size = models.TextField()
 
    def __str__(self):
       return self.title

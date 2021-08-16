@@ -43,13 +43,11 @@ def index(request):
                 else:
                     product_cat.append(k.text)
                 product_category = '-'.join(map(str, product_cat))
-        print(product_category)
 
         #color
         color = sp.find("span", "title").string
         color = color.replace("Renk: ", "")
         color = color.strip()
-        print(color)
 
         #size
         size_arr = []
@@ -59,10 +57,9 @@ def index(request):
                 for k in j.findAll('a', href=True):
                     size_arr.append(k.text)
                 size = ' -'.join(map(str, size_arr))
-        print(size)
 
         #duplicate kontrolü
         product_count = Product.objects.filter(title=title).count()
         if product_count == 0:
-            Product.objects.create(prod_id=id, title=title, image_uri=image_uri,productCategory = product_category)
-
+            Product.objects.create(prod_id=id, title=title, image_uri=image_uri,productCategory = product_category,color=color,size=size)
+#sonunda return değeri olmadığı için burasının çalışması bittiğinde kod hata veriyor. Herhangi bir değer kaybı yok.

@@ -1,3 +1,6 @@
+
+# bu dosya, webten verileri kazırken kullanılmak için deneme amaçlı kuruldu.
+
 from bs4 import BeautifulSoup
 import requests
 

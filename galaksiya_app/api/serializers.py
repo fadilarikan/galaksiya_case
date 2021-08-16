@@ -6,4 +6,4 @@ from galaksiya_app.models import Product
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields= ['prod_id','title','image_uri','productCategory','datePublished']
+        fields= ['prod_id','title','image_uri','productCategory','datePublished','color','size']
