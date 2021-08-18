@@ -12,6 +12,8 @@ class Product(models.Model):
    color = models.CharField(max_length=200,default=False)
    size = models.TextField()
    price = models.CharField(max_length=100,default=False)
+   discount = models.BooleanField(default=False)
+   inStock = models.BooleanField(default=False)
 
    def __str__(self):
       return self.title

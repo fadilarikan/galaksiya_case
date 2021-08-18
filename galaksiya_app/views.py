@@ -1,3 +1,4 @@
+
 from django.shortcuts import render
 from bs4 import BeautifulSoup
 import requests
@@ -22,8 +23,9 @@ def index(request):
         #id
         id = "https://www.koton.com" + k.get('href')
 
-        #price(indirimsiz ürünlerin)
+        #price
         price = []
+        discount = False
         if sp.find('span','normalPrice') != None:
             normalPrice = sp.find('span','normalPrice').string
             normalPrice = normalPrice.strip()
@@ -36,6 +38,7 @@ def index(request):
             newPrice = sp.find("span", "newPrice").string
             newPrice = newPrice.strip()
             price.append(newPrice)
+            discount = True
 
         #image uri
         image_uri = []
@@ -69,8 +72,14 @@ def index(request):
                     size_arr.append(k.text)
                 size = ' - '.join(map(str, size_arr))
 
+        #stok durumu
+
+        inStock = True
+        if sp.find('div','outOfStock') != None:
+            inStock= False
+
         #duplicate kontrolü
         product_count = Product.objects.filter(title=title).count()
         if product_count == 0:
-            Product.objects.create(prod_id=id, title=title, image_uri=image_uri,productCategory = product_category,color=color,size=size,price = price)
+            Product.objects.create(prod_id=id, title=title, image_uri=image_uri,productCategory = product_category,color=color,size=size,price = price,discount = discount,inStock = inStock)
 #sonunda return değeri olmadığı için burasının çalışması bittiğinde kod hata veriyor. Herhangi bir değer kaybı yok.
