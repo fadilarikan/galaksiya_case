@@ -67,7 +67,7 @@ def index(request):
             for j in i.findAll('li'):
                 for k in j.findAll('a', href=True):
                     size_arr.append(k.text)
-                size = ' -'.join(map(str, size_arr))
+                size = ' - '.join(map(str, size_arr))
 
         #duplicate kontrolü
         product_count = Product.objects.filter(title=title).count()
