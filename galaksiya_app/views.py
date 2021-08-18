@@ -23,8 +23,19 @@ def index(request):
         id = "https://www.koton.com" + k.get('href')
 
         #price(indirimsiz ürünlerin)
-        """price = sp.find("span", "normalPrice").string
-        print(price)"""
+        price = []
+        if sp.find('span','normalPrice') != None:
+            normalPrice = sp.find('span','normalPrice').string
+            normalPrice = normalPrice.strip()
+            price.append(normalPrice)
+        else:
+            normalPrice = sp.find("s").string
+            normalPrice = normalPrice.strip()
+            price.append(normalPrice)
+
+            newPrice = sp.find("span", "newPrice").string
+            newPrice = newPrice.strip()
+            price.append(newPrice)
 
         #image uri
         image_uri = []
@@ -61,5 +72,5 @@ def index(request):
         #duplicate kontrolü
         product_count = Product.objects.filter(title=title).count()
         if product_count == 0:
-            Product.objects.create(prod_id=id, title=title, image_uri=image_uri,productCategory = product_category,color=color,size=size)
+            Product.objects.create(prod_id=id, title=title, image_uri=image_uri,productCategory = product_category,color=color,size=size,price = price)
 #sonunda return değeri olmadığı için burasının çalışması bittiğinde kod hata veriyor. Herhangi bir değer kaybı yok.
